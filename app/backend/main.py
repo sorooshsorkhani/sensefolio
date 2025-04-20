@@ -1,15 +1,18 @@
 # app/backend/main.py
 # CLI-style script to test fetching company news using the Finnhub API
+# Now includes sentiment analysis using VADER
 
 from datetime import datetime
 from app.backend.news.fetcher import company_news_finnhub
+from app.backend.sentiment.sentiment_analyzer import SentimentAnalyzer
+
 
 def main():
     """
-    Prompts the user for a stock symbol and fetches the latest news
-    using the company_news_finnhub function.
+    Prompts the user for a stock symbol, fetches recent news headlines,
+    and analyzes the sentiment of each headline.
     """
-    print("📈 Sensefolio News Fetcher (CLI Test)")
+    print("📈 Sensefolio News Sentiment Analyzer (CLI Test)")
     symbol = input("Enter stock symbol (e.g., AAPL): ").strip().upper()
 
     # Fetch news using default date range (last 7 days)
@@ -19,13 +22,28 @@ def main():
         print("⚠️  No news found or an error occurred.")
         return
 
-    print(f"\n📰 Latest news for {symbol}:\n")
+    # Initialize the sentiment analyzer (default model: VADER)
+    analyzer = SentimentAnalyzer()
+
+    print(f"\n📰 Latest news for {symbol} with sentiment scores:\n")
+
     for article in news[:5]:  # Limit to top 5 articles
-        # Convert Unix timestamp to human-readable date
-        pub_date = datetime.fromtimestamp(article['datetime']).strftime('%Y-%m-%d')
-        print(f"- {pub_date} | {article['headline']}")
-        print(f"  {article['url']}\n")
+        headline = article.get("headline", "")
+        url = article.get("url", "")
+        timestamp = article.get("datetime", 0)
+
+        # Convert Unix timestamp to date
+        pub_date = datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d')
+
+        # Analyze sentiment
+        sentiment = analyzer.analyze_sentiment(headline)
+        compound_score = sentiment["compound"]
+
+        print(f"- {pub_date} | {headline}")
+        print(f"  Sentiment Score (compound): {compound_score:.3f}")
+        print(f"  {url}\n")
 
 
 if __name__ == "__main__":
     main()
+

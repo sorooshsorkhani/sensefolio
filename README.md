@@ -8,12 +8,14 @@
 
 Sensefolio combines real-time financial news with sentiment analysis and historical stock data to identify patterns that may influence stock performance. The goal is to build a system that provides a probability-based indication of whether a stock’s value may experience upward or downward momentum over a selected time frame.
 
+It currently uses the VADER sentiment model to analyze news headlines and assess market sentiment.
+
 ## 💡 How It Helps
 
 In today’s fast-moving markets, news plays a critical role in shaping investor sentiment. Sensefolio helps users by:
 
 - Aggregating and organizing company-specific financial news from trusted sources
-- Extracting sentiment from news articles using natural language processing
+- Extracting sentiment from news articles using natural language processing (currently via VADER)
 - Preparing the foundation for analyzing correlations between sentiment trends and stock price movements
 - Laying the groundwork for building predictive models to assist in decision making
 
@@ -49,10 +51,12 @@ cp .env.example .env
 python -m app.backend.main
 ```
 
+> The CLI will prompt for a stock symbol, fetch the latest news, and analyze the sentiment of each headline using VADER.
+
 ## 🛣️ Roadmap
 
 - [x] Fetch latest financial news from Finnhub API
-- [ ] Perform sentiment analysis on news headlines and summaries *(coming soon)*
+- [x] Perform sentiment analysis on news headlines using VADER
 - [ ] Integrate historical stock price data *(coming soon)*
 - [ ] Analyze correlations between sentiment and price movement *(planned)*
 - [ ] Generate short-term movement probabilities *(planned)*
@@ -65,7 +69,6 @@ python -m app.backend.main
 I'm [@sorooshsorkhani](https://github.com/sorooshsorkhani), a data scientist who enjoys using data to build meaningful, useful things.
 
 I'm learning as I go, and this project is very much a work in progress — thanks for checking it out!
-
 
 ## 📢 Disclaimer
 
