@@ -30,7 +30,7 @@ Whether you're an investor, a data enthusiast, or simply curious, Sensefolio aim
 
 ### 📦 Setup Instructions
 
-```
+```bash
 # 1. Clone the repository
 git clone https://github.com/your-username/sensefolio.git
 cd sensefolio
@@ -46,12 +46,26 @@ pip install -r requirements.txt
 # Copy the example file and insert your actual API key
 cp .env.example .env
 # Then edit .env and replace the placeholder with your API key
-
-# 5. Run the CLI test
-python -m app.backend.main
 ```
 
-> The CLI will prompt for a stock symbol, fetch the latest news, and analyze the sentiment of each headline using VADER.
+### 🧪 Run CLI Demos
+
+```bash
+# Run the integrated news + sentiment demo
+python -m app.backend.main
+
+# Run individual CLI tests for each module
+python -m app.backend.cli_tests.news_fetcher_cli_test
+python -m app.backend.cli_tests.sentiment_analyzer_cli_test
+```
+
+### ✅ Run Unit Tests (via Pytest)
+
+```bash
+pytest app/tests/
+```
+
+> Tests cover news fetching, sentiment analysis logic, and date validation logic.
 
 ## 🛣️ Roadmap
 

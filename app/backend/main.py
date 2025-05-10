@@ -1,15 +1,14 @@
 # app/backend/main.py
-# CLI-style script to test fetching company news using the Finnhub API
-# Now includes sentiment analysis using VADER
+# 🔧 Manual CLI demo: Fetch news and run sentiment analysis
 
 from datetime import datetime
-from app.backend.news.fetcher import company_news_finnhub
+from app.backend.news.news_fetcher import company_news_finnhub
 from app.backend.sentiment.sentiment_analyzer import SentimentAnalyzer
 
 
 def main():
     """
-    Prompts the user for a stock symbol, fetches recent news headlines,
+    Prompts the user for a stock symbol, fetches recent news headlines, \
     and analyzes the sentiment of each headline.
     """
     print("📈 Sensefolio News Sentiment Analyzer (CLI Test)")
@@ -46,4 +45,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
