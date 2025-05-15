@@ -56,3 +56,21 @@ class SentimentAnalyzer:
             return self.analyzer.polarity_scores(text)
 
         raise NotImplementedError(f"Model '{self.model_name}' is not implemented yet.")
+
+
+def main():
+    print("🧠 Sentiment Analyzer (VADER)")
+
+    analyzer = SentimentAnalyzer()
+
+    while True:
+        text = input("\nEnter a sentence (or 'q' to quit): ").strip()
+        if text.lower() == "q":
+            break
+
+        scores = analyzer.analyze_sentiment(text)
+        print(f"Sentiment Scores: {scores}")
+
+
+if __name__ == "__main__":
+    main()

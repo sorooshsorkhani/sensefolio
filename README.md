@@ -48,31 +48,20 @@ cp .env.example .env
 # Then edit .env and replace the placeholder with your API key
 ```
 
-### 🧪 Run CLI Demos
+### 🧪 Run
 
 ```bash
-# Run the integrated news + sentiment demo
-python -m app.backend.main
-
-# Run individual CLI tests for each module
-python -m app.backend.cli_tests.news_fetcher_cli_test
-python -m app.backend.cli_tests.sentiment_analyzer_cli_test
+# To be completed
 ```
-
-### ✅ Run Unit Tests (via Pytest)
-
-```bash
-pytest app/tests/
-```
-
-> Tests cover news fetching, sentiment analysis logic, and date validation logic.
 
 ## 🛣️ Roadmap
 
 - [x] Fetch latest financial news from Finnhub API
 - [x] Perform sentiment analysis on news headlines using VADER
-- [ ] Integrate historical stock price data *(coming soon)*
-- [ ] Analyze correlations between sentiment and price movement *(planned)*
+- [x] Fetch historical stock price data from Yahoo! Finance
+- [ ] Perform sentiment analysis on news summaries using VADER *(comming soon)*
+- [ ] Visualize the sentiments and the price *(comming soon)*
+- [ ] Analyze the relation between sentiment and price movement *(planned)*
 - [ ] Generate short-term movement probabilities *(planned)*
 - [ ] Expose functionality via a REST API *(planned)*
 - [ ] Build a frontend interface for user interaction *(planned)*
