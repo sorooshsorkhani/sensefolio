@@ -59,12 +59,14 @@ cp .env.example .env
 - [x] Fetch latest financial news from Finnhub API
 - [x] Perform sentiment analysis on news headlines using VADER
 - [x] Fetch historical stock price data from Yahoo! Finance
-- [ ] Perform sentiment analysis on news summaries using VADER *(comming soon)*
-- [ ] Visualize the sentiments and the price *(comming soon)*
+- [x] Perform sentiment analysis on news summaries using VADER
+- [x] Visualize the sentiments and the price
+- [ ] Build a frontend interface for user interaction *(comming soon)*
+- [ ] Implement CI/CD pipeline for automated testing and deployment *(comming soon)*
+- [ ] Deploy a simple version of the projcet *(comming soon)*
 - [ ] Analyze the relation between sentiment and price movement *(planned)*
 - [ ] Generate short-term movement probabilities *(planned)*
 - [ ] Expose functionality via a REST API *(planned)*
-- [ ] Build a frontend interface for user interaction *(planned)*
 - [ ] Deploy the complete application *(planned)*
 
 ## 👤 About the Author

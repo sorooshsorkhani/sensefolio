@@ -1,8 +1,10 @@
-# stock_data.py
-# Module responsible for stock_data from Yahoo! Finance.
+# stock_data_updated.py
+# Updated module for fetching and visualizing stock data.
 
 import yfinance as yf
 from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+
 
 def get_data(symbol):
     """
@@ -23,19 +25,18 @@ def get_data(symbol):
         stock = yf.Ticker(symbol)
         data = stock.history(start=start_date.strftime('%Y-%m-%d'), end=end_date.strftime('%Y-%m-%d'))
 
-        # Check if current price needs to be fetched
-        current_price = None
-        if end_date.strftime('%Y-%m-%d') not in data.index.strftime('%Y-%m-%d').tolist():
-            current_price = stock.info.get('currentPrice', None)
+        # Get the current price
+        current_price = stock.info.get('currentPrice', None)
 
         return data, current_price
     except Exception as e:
         print(f"Error fetching data for {symbol}: {e}")
         return None, None
 
-def show_data(symbol, data, current_price):
+
+def visualize_data(symbol, data, current_price):
     """
-    Displays historical stock data and the current price.
+    Visualizes historical stock data and the current price.
 
     Args:
         symbol (str): The stock symbol.
@@ -43,24 +44,53 @@ def show_data(symbol, data, current_price):
         current_price (float or None): The current stock price, if available.
     """
     if data is not None:
-        # Display the fetched data
-        print(f"\nHistorical prices for {symbol}:")
-        for date, row in data.iterrows():
-            print(f"{date.strftime('%Y-%m-%d')}: {row['Close']}")
+        plt.figure(figsize=(10, 6))
 
-        # Display the current price if available
-        if current_price is not None:
-            print(f"\nCurrent price for {symbol} (live): {current_price}")
+        # Plot historical prices
+        plt.plot(
+            data.index.strftime('%Y-%m-%d'),
+            data['Close'],
+            color='blue',
+            marker='o',
+            linestyle='-',
+            label='Close Price'
+            )
+
+        # Check if current price exists and is not in historical data
+        last_date = data.index[-1].strftime('%Y-%m-%d')
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        if current_price is not None and current_date != last_date:
+            plt.plot(
+                [last_date, current_date],
+                [data['Close'].iloc[-1], current_price],
+                color='green' if current_price > data['Close'].iloc[-1] else 'red',
+                linestyle='-',
+                marker='o',
+                label='Current Price'
+                )
+
+        # Set axis labels and title
+        plt.xlabel('Date')
+        plt.ylabel('Price')
+        plt.title(f'Stock Price for {symbol}')
+        plt.legend()
+
+        plt.grid(True)
+        plt.show()
     else:
-        print(f"Failed to retrieve data for {symbol}.")
+        print(f"No data available to visualize for {symbol}.")
+
 
 def main():
     """
     Main function to execute the script.
     """
-    symbol = input("Enter the stock symbol: ").strip().upper()
+    symbol = input("Enter the stock symbol (e.g., AAPL): ").strip().upper()
     data, current_price = get_data(symbol)
-    show_data(symbol, data, current_price)
+
+    # Visualize the data
+    visualize_data(symbol, data, current_price)
+
 
 if __name__ == "__main__":
     main()
